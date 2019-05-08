@@ -11,5 +11,10 @@ namespace BufferMgmt.Web.Models
 
         }
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<MaterialCode> MaterialCodes { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<MaterialDetail> MaterialDetails { get; set; }
+
     }
 }

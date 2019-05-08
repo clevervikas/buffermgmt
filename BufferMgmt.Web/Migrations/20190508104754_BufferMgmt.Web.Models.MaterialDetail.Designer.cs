@@ -3,14 +3,16 @@ using BufferMgmt.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BufferMgmt.Web.Migrations
 {
     [DbContext(typeof(BufferMgmtContext))]
-    partial class BufferMgmtContextModelSnapshot : ModelSnapshot
+    [Migration("20190508104754_BufferMgmt.Web.Models.MaterialDetail")]
+    partial class BufferMgmtWebModelsMaterialDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

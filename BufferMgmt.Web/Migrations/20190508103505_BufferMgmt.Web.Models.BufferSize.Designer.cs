@@ -3,14 +3,16 @@ using BufferMgmt.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BufferMgmt.Web.Migrations
 {
     [DbContext(typeof(BufferMgmtContext))]
-    partial class BufferMgmtContextModelSnapshot : ModelSnapshot
+    [Migration("20190508103505_BufferMgmt.Web.Models.BufferSize")]
+    partial class BufferMgmtWebModelsBufferSize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,37 +97,6 @@ namespace BufferMgmt.Web.Migrations
                     b.ToTable("MaterialCodes");
                 });
 
-            modelBuilder.Entity("BufferMgmt.Web.Models.MaterialDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BranchId");
-
-                    b.Property<decimal>("BufferStock");
-
-                    b.Property<int>("CustomerId");
-
-                    b.Property<int>("GradeId");
-
-                    b.Property<int>("MaterialCodeId");
-
-                    b.Property<int>("RefLength");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("GradeId");
-
-                    b.HasIndex("MaterialCodeId");
-
-                    b.ToTable("MaterialDetails");
-                });
-
             modelBuilder.Entity("BufferMgmt.Web.Models.BufferSize", b =>
                 {
                     b.HasOne("BufferMgmt.Web.Models.Branch", "Branch")
@@ -140,29 +111,6 @@ namespace BufferMgmt.Web.Migrations
 
                     b.HasOne("BufferMgmt.Web.Models.MaterialCode", "MaterialCode")
                         .WithMany("BufferSize")
-                        .HasForeignKey("MaterialCodeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BufferMgmt.Web.Models.MaterialDetail", b =>
-                {
-                    b.HasOne("BufferMgmt.Web.Models.Branch", "Branch")
-                        .WithMany("MaterialDetail")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BufferMgmt.Web.Models.Customer", "Customer")
-                        .WithMany("MaterialDetail")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BufferMgmt.Web.Models.Grade", "Grade")
-                        .WithMany("MaterialDetail")
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BufferMgmt.Web.Models.MaterialCode", "MaterialCode")
-                        .WithMany("MaterialDetail")
                         .HasForeignKey("MaterialCodeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -5,15 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BufferMgmt.Web.Models
 {
-    public class Branch
+    public class Grade
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int BranchName { get; set; }
+        public string GradeName { get; set; }
 
-        public ICollection<BufferSize> BufferSize { get; set; }
         public ICollection<MaterialDetail> MaterialDetail { get; set; }
-
     }
 }
