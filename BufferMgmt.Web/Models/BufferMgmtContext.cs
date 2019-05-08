@@ -10,7 +10,6 @@ namespace BufferMgmt.Web.Models
         {
 
         }
-
         public DbSet<Branch> Branches { get; set; }
     }
 }
