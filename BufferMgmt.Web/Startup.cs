@@ -22,7 +22,7 @@ namespace BufferMgmt.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BufferMgmtContext>(opts=>opts.UseSqlServer(Configuration["ConnectionString:BufferMgmtDB"]));
-
+            services.AddScoped(typeof(IRepo<Branch>), typeof(Repo<Branch>));
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
