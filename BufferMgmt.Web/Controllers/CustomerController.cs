@@ -5,76 +5,78 @@ namespace BufferMgmt.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BranchController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly IRepo<Branch> _repo;
-        public BranchController(IRepo<Branch> repo)
+
+        private readonly IRepo<Customer> _repo;
+        public CustomerController(IRepo<Customer> repo)
         {
             _repo = repo;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Branch branch)
+        public IActionResult Post([FromBody] Customer customers)
         {
-            if(branch==null)
+            if (customers == null)
             {
                 return BadRequest("employee is null");
             }
             else
             {
-                _repo.Add(branch);
-                return Ok(branch);
+                _repo.Add(customers);
+                return Ok(customers);
             }
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var Branches = _repo.GetAll();
-            return Ok(Branches);
+            var customers = _repo.GetAll();
+            return Ok(customers);
         }
 
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int Id)
         {
-            Branch branch = _repo.Get(Id);
+            Customer customer = _repo.Get(Id);
 
-            if(branch==null)
+            if (customer == null)
             {
                 return BadRequest("branch not found");
             }
             else
             {
-                return Ok(branch);
+                return Ok(customer);
             }
         }
 
         [HttpDelete]
-       public IActionResult Delete(Branch branch )
+        public IActionResult Delete(Customer customer)
         {
-            if(branch== null)
+            if (customer == null)
             {
                 return BadRequest("the branch is Null");
             }
             else
             {
-                _repo.Delete(branch);
+                _repo.Delete(customer);
                 return Ok();
             }
         }
 
         [HttpPut]
-        public IActionResult Update(Branch branch)
+        public IActionResult Update(Customer customer)
         {
-            if (branch == null)
+            if (customer == null)
             {
                 return BadRequest("the branch is Null");
             }
             else
             {
-                _repo.Update(branch);
+                _repo.Update(customer);
                 return Ok();
             }
         }
+
     }
 }

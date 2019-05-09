@@ -5,74 +5,74 @@ namespace BufferMgmt.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BranchController : ControllerBase
+    public class MaterialCodeController : ControllerBase
     {
-        private readonly IRepo<Branch> _repo;
-        public BranchController(IRepo<Branch> repo)
+        private readonly IRepo<MaterialCode> _repo;
+        public MaterialCodeController(IRepo<MaterialCode> repo)
         {
             _repo = repo;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Branch branch)
+        public IActionResult Post([FromBody] MaterialCode materialCode)
         {
-            if(branch==null)
+            if (materialCode == null)
             {
                 return BadRequest("employee is null");
             }
             else
             {
-                _repo.Add(branch);
-                return Ok(branch);
+                _repo.Add(materialCode);
+                return Ok(materialCode);
             }
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var Branches = _repo.GetAll();
-            return Ok(Branches);
+            var materialCodes = _repo.GetAll();
+            return Ok(materialCodes);
         }
 
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int Id)
         {
-            Branch branch = _repo.Get(Id);
+            MaterialCode MaterialCode = _repo.Get(Id);
 
-            if(branch==null)
+            if (MaterialCode == null)
             {
                 return BadRequest("branch not found");
             }
             else
             {
-                return Ok(branch);
+                return Ok(MaterialCode);
             }
         }
 
         [HttpDelete]
-       public IActionResult Delete(Branch branch )
+        public IActionResult Delete(MaterialCode MaterialCode)
         {
-            if(branch== null)
+            if (MaterialCode == null)
             {
                 return BadRequest("the branch is Null");
             }
             else
             {
-                _repo.Delete(branch);
+                _repo.Delete(MaterialCode);
                 return Ok();
             }
         }
 
         [HttpPut]
-        public IActionResult Update(Branch branch)
+        public IActionResult Update(MaterialCode MaterialCode)
         {
-            if (branch == null)
+            if (MaterialCode == null)
             {
                 return BadRequest("the branch is Null");
             }
             else
             {
-                _repo.Update(branch);
+                _repo.Update(MaterialCode);
                 return Ok();
             }
         }
