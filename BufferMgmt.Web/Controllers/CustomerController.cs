@@ -1,5 +1,8 @@
-﻿using BufferMgmt.Web.Models;
+﻿using AutoMapper;
+using BufferMgmt.DAL.Entities;
+using BufferMgmt.DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BufferMgmt.Web.Controllers
 {
@@ -9,8 +12,10 @@ namespace BufferMgmt.Web.Controllers
     {
 
         private readonly IRepo<Customer> _repo;
-        public CustomerController(IRepo<Customer> repo)
+        private readonly IMapper _mapper;
+        public CustomerController(IRepo<Customer> repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -24,7 +29,8 @@ namespace BufferMgmt.Web.Controllers
             else
             {
                 _repo.Add(customers);
-                return Ok(customers);
+                var model = _mapper.Map<CustomerVM>(customers);
+                return Ok(model);
             }
         }
 
@@ -32,10 +38,11 @@ namespace BufferMgmt.Web.Controllers
         public IActionResult Get()
         {
             var customers = _repo.GetAll();
-            return Ok(customers);
+            var model = _mapper.Map<IEnumerable<CustomerVM>>(customers);
+            return Ok(model);
         }
 
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int Id)
         {
             Customer customer = _repo.Get(Id);
@@ -46,7 +53,8 @@ namespace BufferMgmt.Web.Controllers
             }
             else
             {
-                return Ok(customer);
+                var model = _mapper.Map<IEnumerable<CustomerVM>>(customer);
+                return Ok(model);
             }
         }
 
@@ -74,7 +82,8 @@ namespace BufferMgmt.Web.Controllers
             else
             {
                 _repo.Update(customer);
-                return Ok();
+                var model = _mapper.Map<IEnumerable<CustomerVM>>(customer);
+                return Ok(model);
             }
         }
 

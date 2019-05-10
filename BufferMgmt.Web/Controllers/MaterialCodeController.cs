@@ -1,5 +1,8 @@
-﻿using BufferMgmt.Web.Models;
+﻿using AutoMapper;
+using BufferMgmt.DAL.Entities;
+using BufferMgmt.DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BufferMgmt.Web.Controllers
 {
@@ -8,8 +11,10 @@ namespace BufferMgmt.Web.Controllers
     public class MaterialCodeController : ControllerBase
     {
         private readonly IRepo<MaterialCode> _repo;
-        public MaterialCodeController(IRepo<MaterialCode> repo)
+        private readonly IMapper _mapper;
+        public MaterialCodeController(IRepo<MaterialCode> repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -23,7 +28,9 @@ namespace BufferMgmt.Web.Controllers
             else
             {
                 _repo.Add(materialCode);
-                return Ok(materialCode);
+
+                var model = _mapper.Map<MaterialCodeVM>(materialCode);
+                return Ok(model);
             }
         }
 
@@ -31,10 +38,12 @@ namespace BufferMgmt.Web.Controllers
         public IActionResult Get()
         {
             var materialCodes = _repo.GetAll();
+            var model = _mapper.Map<IEnumerable<MaterialCodeVM>>(materialCodes);
+
             return Ok(materialCodes);
         }
 
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int Id)
         {
             MaterialCode MaterialCode = _repo.Get(Id);
@@ -45,7 +54,8 @@ namespace BufferMgmt.Web.Controllers
             }
             else
             {
-                return Ok(MaterialCode);
+                var model = _mapper.Map<MaterialCodeVM>(MaterialCode);
+                return Ok(model);
             }
         }
 
@@ -73,7 +83,8 @@ namespace BufferMgmt.Web.Controllers
             else
             {
                 _repo.Update(MaterialCode);
-                return Ok();
+                var model = _mapper.Map<MaterialCodeVM>(MaterialCode);
+                return Ok(model);
             }
         }
     }
